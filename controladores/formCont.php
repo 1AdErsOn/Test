@@ -22,4 +22,24 @@ class ControladorForm{
         $respuesta = ModeloFormularios::mdlRegistros($tabla);
         return $respuesta;
     }
+    public function ctrIngreso(){
+        if(isset($_POST["ingresar"])){
+            $tabla = "admins";
+            $item = "email";
+            $valor = $_POST['email'];
+            $redirectURL ="index.php?pagina=inicio";
+            $password = trim($_POST['pswd']);
+            $password_hash = md5($password);
+            $respuesta = ModeloFormularios::mdlConsulta($tabla, $item, $valor);
+            //echo $respuesta["password"];
+            if($respuesta["email"] == $_POST["email"] && $respuesta["password"] == $password_hash){
+                //echo "ingreso";
+                header("Location: $redirectURL");
+            }else{
+                //echo "NO ingreso";
+                $redirectURL ="index.php?pagina=ingreso";
+                header("Location: $redirectURL");
+            }            
+        }
+    }
 }
