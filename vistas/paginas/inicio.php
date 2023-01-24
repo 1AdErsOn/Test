@@ -1,27 +1,31 @@
-<h1>Work</h1>
+<?php
+$usuarios = ControladorForm::ctrRegistros();
+//print_r($usuarios);
+?>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
             <th>Email</th>
+            <th>Phone</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
+        <?php foreach($usuarios as $key => $value): ?>
         <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
+            <td><?php echo $value["first_name"]; ?></td>
+            <td><?php echo $value["last_name"]; ?></td>
+            <td><?php echo $value["email"]; ?></td>
+            <td><?php echo $value["phone"]; ?></td>
+            <td>
+                <div class="btn-group">
+                    <button class="btn btn-danger">Edit</button>
+                    <button class="btn btn-warning">Delete</button>
+                </div>
+            </td>
         </tr>
-        <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-        </tr>
-        <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-        </tr>
+        <?php endforeach ?>
     </tbody>
 </table>

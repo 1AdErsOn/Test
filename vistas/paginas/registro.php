@@ -11,7 +11,7 @@
            //$registro = new ControladorForm();
            //$registro -> ctrRegistro();
             $registro = ControladorForm::ctrRegistro();
-            //echo $registro;
+            echo $registro;
             /* script if($registro == "ok"){
                 //echo <div class=alert alert->Registrado</div>;
                 if (window.history.replaceState){
