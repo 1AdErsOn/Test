@@ -7,8 +7,17 @@
         <input class="form-control" type="password" name="password" placeholder="PASSWORD" required="">
         <input class="form-control" type="password" name="confirm_password" placeholder="CONFIRM PASSWORD" required="">
         <?php
-           $registro = new ControladorForm();
-           $registro -> ctrRegistro();
+        /* Metodo no estatico */ 
+           //$registro = new ControladorForm();
+           //$registro -> ctrRegistro();
+            $registro = ControladorForm::ctrRegistro();
+            //echo $registro;
+            /* script if($registro == "ok"){
+                //echo <div class=alert alert->Registrado</div>;
+                if (window.history.replaceState){
+                    window.history(null,null,window.location.href);
+                }
+            }*/
         ?>
         <input class="btn btn-primary" type="submit" name="signupSubmit" value="CREATE ACCOUNT">
     </form>
