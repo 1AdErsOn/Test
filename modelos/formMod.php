@@ -28,10 +28,30 @@ class ModeloFormularios{
         $stmt = null;
     }
     static public function mdlConsulta($tabla, $item, $valor){
-        $stmt = Conexion::conectar() -> prepare("SELECT * FROM $tabla WHERE $item = :$item ORDER BY id DESC");
+        $stmt = Conexion::conectar() -> prepare("SELECT * FROM $tabla WHERE $item = :$item");
         $stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
         $stmt -> execute();
         return $stmt -> fetch();
+        $stmt -> close();
+        $stmt = null;
+    }
+    static public function mdlActualizar($tabla,$datos,$id){
+        $modificado = date("Y-m-d H:i:s");
+        $stmt = Conexion::conectar() -> prepare("UPDATE $tabla 
+        SET first_name = :first_name, last_name = :last_name, email = :email, password = :password, phone = :phone, modified = :modified WHERE id = $id");
+
+        $stmt -> bindParam(":first_name", $datos["first_name"], PDO::PARAM_STR);
+        $stmt -> bindParam(":last_name", $datos["last_name"], PDO::PARAM_STR);
+        $stmt -> bindParam(":email", $datos["email"], PDO::PARAM_STR);
+        $stmt -> bindParam(":password", $datos["password"], PDO::PARAM_STR);
+        $stmt -> bindParam(":phone", $datos["phone"], PDO::PARAM_STR);
+        $stmt -> bindParam(":modified", $modificado, PDO::PARAM_STR);
+        //$stmt -> bindParam(":".$id, $valor, PDO::PARAM_STR);
+        if($stmt -> execute()){
+            return "ok";
+        }else{
+            print_r(Conexion::conectar() -> errorInfo());
+        }
         $stmt -> close();
         $stmt = null;
     }

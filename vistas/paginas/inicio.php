@@ -1,7 +1,23 @@
 <?php
+$Mensaje = "";
+if(!isset($_SESSION["Ingreso"])){
+    $redirectURL ="index.php?pagina=ingreso";
+    header("Location: $redirectURL");
+    return;
+}else{
+    if(isset($_SESSION["mensaje"])){
+        $Mensaje = $_SESSION["mensaje"];
+        unset($_SESSION["mensaje"]);
+    }
+    //$redirectURL ="index.php?pagina=ingreso";
+    //header("Location: $redirectURL");
+}
 $usuarios = ControladorForm::ctrRegistros();
+//$actualizar = new ControladorForm();
+//$actualizar -> ctrActualizar()
 //print_r($usuarios);
 ?>
+<h3><?php echo $Mensaje; ?></h3>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -25,8 +41,17 @@ $usuarios = ControladorForm::ctrRegistros();
             <td><?php echo $value["fecha"]; ?></td>
             <td>
                 <div class="btn-group">
-                    <button class="btn btn-danger">Edit</button>
-                    <button class="btn btn-warning">Delete</button>
+                    <div class="px-1">
+                        <a href="index.php?pagina=editar&id=<?php echo $value['id']; ?>" class="btn btn-danger">Edit</a>
+                    </div>
+                    <form method="post">
+                        <input type="hidden" name="ID" value="<?php echo $value['id']; ?>">
+                        <button type="submit" class="btn btn-warning">Delete</button>
+                        <?php
+                            $eliminar = new ControladorForm();
+                            $eliminar -> ctrEliminar();
+                        ?>
+                    </form>
                 </div>
             </td>
         </tr>

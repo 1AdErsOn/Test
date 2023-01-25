@@ -1,4 +1,9 @@
 <?php
+if(isset($_SESSION["Ingreso"])){
+    $redirectURL ="index.php?pagina=inicio";
+    header("Location: $redirectURL");
+    return;
+}
 $ingreso = new ControladorForm();
 $ingreso -> ctrIngreso();
 ?>
