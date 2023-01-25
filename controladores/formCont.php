@@ -76,4 +76,17 @@ class ControladorForm{
             }
         }
     }
+    public function ctrEliminar(){
+        if(isset($_POST["ID"])){
+            $tabla = "admins";
+            $id = trim($_POST["ID"]);
+            $respuesta = ModeloFormularios::mdlEliminar($tabla, $id);
+            if($respuesta == "ok"){
+                $mensage = "Eliminado";
+                $_SESSION["mensaje"] = $mensage;
+                $redirectURL ="index.php?pagina=inicio";
+                header("Location: $redirectURL");
+            }
+        }
+    }
 }
